@@ -53,9 +53,7 @@ class CatcherLaravelServiceProvider extends ServiceProvider
 
             Catcher::init($config, $handleException, $handleError, $handleFatal);
 
-            CatcherLogger::$instance = $logger = new CatcherLogger(Catcher::logger());
-
-            return $logger;
+            return new CatcherLogger(Catcher::logger());
         });
     }
 }
