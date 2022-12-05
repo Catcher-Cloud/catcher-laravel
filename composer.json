@@ -1,0 +1,26 @@
+{
+    "name": "catcher-cloud/catcher-laravel",
+    "type": "library",
+    "require": {
+        "php": "^8.1",
+        "catcher-cloud/catcher-php": "@dev"
+    },
+    "autoload": {
+        "psr-4": {
+            "Catcher\\Laravel\\": "src/"
+        }
+    },
+    "require-dev": {
+        "laravel/laravel": "^9.3"
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Catcher\\Laravel\\Providers\\CatcherLaravelServiceProvider"
+            ],
+            "aliases": {
+                "Catcher": "Catcher\\Laravel\\Facades\\Catcher"
+            }
+        }
+    }
+}
