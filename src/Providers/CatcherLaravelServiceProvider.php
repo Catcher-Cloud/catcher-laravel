@@ -12,10 +12,26 @@ class CatcherLaravelServiceProvider extends ServiceProvider
 {
     public function register()
     {
+        $this->publishes([
+            realpath(dirname(__FILE__) . '/../../publishable/catcher.php') => config_path('catcher.php')
+        ], 'catcher-cloud');
+
         if (!$this->isConfigured()) {
             return;
         }
 
+        $this->registerSingleton();
+    }
+
+    protected
+
+    /**
+     * Register the singleton on the service provider.
+     *
+     * @return void
+     */
+    function registerSingleton()
+    {
         $this->app->singleton(Catcher::class, function (Application $app) {
             $defaults = [
                 'environment' => $app->environment(),

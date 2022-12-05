@@ -1,6 +1,6 @@
 <?php
 
-namespace Catcher\Laravel;
+namespace Catcher\Laravel\Facades;
 
 use Catcher\Response;
 use Illuminate\Support\Facades\Facade;
