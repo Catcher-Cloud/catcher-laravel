@@ -10,8 +10,4 @@ return [
     'accessToken' => env('CATCHER_ACCESS_TOKEN'),
 
     'defaultLoggingLevel' => env('CATCHER_DEFAULT_LOGGING_LEVEL', 'DEBUG'),
-
-    'sender' => null,
-
-    'baseException' => null,
 ];

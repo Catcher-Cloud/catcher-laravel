@@ -3,6 +3,8 @@
 namespace Catcher\Laravel\Providers;
 
 use Catcher\Catcher;
+use Catcher\Laravel\CatcherLogger;
+use Catcher\Logger;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Arr;
 use Illuminate\Support\ServiceProvider;
@@ -16,10 +18,6 @@ class CatcherLaravelServiceProvider extends ServiceProvider
             realpath(dirname(__FILE__) . '/../../publishable/catcher.php') => config_path('catcher.php')
         ], 'catcher-cloud');
 
-        if (!$this->isConfigured()) {
-            return;
-        }
-
         $this->registerSingleton();
     }
 
@@ -32,7 +30,7 @@ class CatcherLaravelServiceProvider extends ServiceProvider
      */
     function registerSingleton()
     {
-        $this->app->singleton(Catcher::class, function (Application $app) {
+        $this->app->singleton('catcher', function (Application $app) {
             $defaults = [
                 'environment' => $app->environment(),
                 'root' => base_path(),
@@ -55,21 +53,9 @@ class CatcherLaravelServiceProvider extends ServiceProvider
 
             Catcher::init($config, $handleException, $handleError, $handleFatal);
 
-            return Catcher::logger();
+            CatcherLogger::$instance = $logger = new CatcherLogger(Catcher::logger());
+
+            return $logger;
         });
-    }
-
-    /**
-     * Check if the package has been configured.
-     *
-     * @return bool
-     */
-    protected function isConfigured(): bool
-    {
-        $level = config('catcher.level', 'DEBUG');
-
-        $token = config('catcher.accessToken');
-
-        return !$token || !$level;
     }
 }

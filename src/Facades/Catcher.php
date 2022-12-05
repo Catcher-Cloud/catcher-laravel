@@ -17,6 +17,6 @@ class Catcher extends Facade
 {
     protected static function getFacadeAccessor()
     {
-        return app(\Catcher\Catcher::class);
+        return 'catcher';
     }
 }
